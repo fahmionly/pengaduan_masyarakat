@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <div class="row m-1">
                         <div class="col-md-4">
-                            <form action="" method="post">
+                            <form action="{{route('petugas.store')}}" method="post">
                                 @csrf
                                 <div class="form-group mt-2">
                                     <label> Nama Lengkap </label>
@@ -33,8 +33,10 @@
                                 
                                 <div class="form-group mt-2">
                                     <label> Password </label>
-                                    <input type="text" name="password" maxlength="16" class="form-control">
+                                    <input type="password" name="password" maxlength="16" class="form-control">
                                 </div>
+
+                                <input type="hidden" name="role" value="petugas">
                                 
                                 <div class="form-group mt-2">
                                     <button type="submit" class="btn btn-success"> Tambah </button>
@@ -51,6 +53,26 @@
                                         <th>Telephone</th>
                                         <th>Action</th>
                                     </thead>
+                                    <tbody>
+                                        @foreach($user as $row)
+                                        @if($row->role=== 'petugas')
+                                        <tr>
+                                            <td>{{$row->name}}</td>
+                                            <td>{{$row->username}}</td>
+                                            <td>{{$row->telp}}</td>
+                                            <td>
+                                                <form action="#" method="post">
+                                                    @csrf
+                                                    
+                                                    <a href="#" class="btn btn-info"> Detail </a>
+                                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                        @endforeach
+
+                                    </tbody>
 
                                 </table>
                             </div>
