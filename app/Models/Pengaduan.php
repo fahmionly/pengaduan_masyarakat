@@ -11,4 +11,8 @@ class Pengaduan extends Model
 
     protected $table = 'pangaduan';
     protected $guarded = [];
+
+    public function user(){
+        return $this->belongsTo('App\Models\User', 'id_user');
+    }
 }

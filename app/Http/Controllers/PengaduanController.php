@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pengaduan;
 use Illuminate\Http\Request;
 
+
 class PengaduanController extends Controller
 {
     /**
@@ -12,7 +13,8 @@ class PengaduanController extends Controller
      */
     public function index()
     {
-        //
+        $pengaduan = Pengaduan::where('id_user', auth()->user()->id)->get()->all();
+        return view('masyarakat.index', compact('pengaduan') );
     }
 
     /**
@@ -28,15 +30,31 @@ class PengaduanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        if($request->hasFile('foto'))
+        {
+            $destination_path = 'public/images/dokumentasi';
+            $image = $request->file('foto');
+            $name = $image->getClientOriginalName();
+            $path = $request->file('foto')->storeAs($destination_path, $name);
+            $input['foto'] = $name;
+        }
+        
+        $now = date('Y-m-d');
+        $input['tanggal_pengaduan'] = $now;
+        
+        Pengaduan::create($input);
+        return back();
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Pengaduan $pengaduan)
+    public function show($id)
     {
-        //
+        $pengaduan = Pengaduan::find($id);
+        return view('masyarakat.detail', compact('pengaduan'));
     }
 
     /**
