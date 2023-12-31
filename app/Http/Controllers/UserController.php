@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Arr;
 use App\Models\User;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $user = User::all();
@@ -42,9 +45,10 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $user = User::find($id);
+        return view('petugas.detail', compact('user'));
     }
 
     /**
@@ -58,16 +62,27 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request,$id)
     {
-        //
+        $user = User::find($id);
+        $input = $request->all();
+        if($request->input('password')){
+            $input['password'] = Hash::make($input['password']);
+        } else {
+            $input = Arr::except($input,['password']);
+        }
+
+        $user->update($input);
+        return redirect('/petugas');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $data = User::find($id);
+        $data->delete();
+        return back();
     }
 }
