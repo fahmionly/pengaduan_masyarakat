@@ -9,42 +9,8 @@
 
                 <div class="card-body">
                     <div class="row m-1">
-                        <div class="col-md-4">
-                            <form action="{{route('pengaduan.update', $pengaduan->id)}}" method="post">
-                                @csrf
-                                {{method_field('PUT')}}
-                                <div class="form-group mt-2">
-                                    <label> Nama Pelapor </label>
-                                    <input type="text" name="name" value="{{$pengaduan->name}}" class="form-control">
-                                </div>
-                                <div class="form-group mt-2">
-                                    <label> Username </label>
-                                    <input type="text" name="username" value="{{$pengaduan->username}}" class="form-control">
-                                </div>
-
-                                <div class="form-group mt-2">
-                                    <label> Nomor Induk Kependudukan </label>
-                                    <input type="text" name="nik" value="{{$pengaduan->nik}}" maxlength="16" class="form-control">
-                                </div>
-                                <div class="form-group mt-2">
-                                    <label> Telephone </label>
-                                    <input type="text" name="telp" value="{{$pengaduan->telp}}" maxlength="13" class="form-control">
-                                </div>
-                                <div class="form-group mt-2">
-                                    <label> Password </label>
-                                    <input type="password" name="password" maxlength="16" class="form-control">
-                                </div>
-
-                                <input type="hidden" name="role" value="petugas">
-                                
-                                <div class="form-group mt-2">
-                                    <button type="submit" class="btn btn-success"> Update </button>
-                                    <a href="/pengaduan" class="btn btn-danger">Kembali</a>
-                                </div>
-
-                            </form>
-                        </div>
-                        <div class="col-md-8">
+                        
+                        <div class="col-md-12">
                             <div class="table-responsive">
                                 <table class="table table-hover">
                                     <tr>
@@ -87,6 +53,9 @@
                                     </tr>
 
                                 </table>
+                                <div class="form-group mt-2">
+                                    <a href="/pengaduan" class="btn btn-danger">Kembali</a>
+                                </div>
                             </div>
                         </div>
                     </div>

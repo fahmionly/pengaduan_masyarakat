@@ -11,7 +11,12 @@ class PengaduanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
+     public function index()
     {
         $pengaduan = Pengaduan::where('id_user', auth()->user()->id)->get()->all();
         return view('masyarakat.index', compact('pengaduan') );
